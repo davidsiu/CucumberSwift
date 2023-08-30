@@ -31,6 +31,22 @@ open class CucumberTest: XCTestCase {
         return suite
     }
 
+    /// Take a screenshot of a given app and add it to the test attachments.
+    /// - Parameters:
+    ///   - app: The app to take a screenshot of.
+    ///   - name: The name of the screenshot.
+    public func takeScreenshot(app: XCUIApplication, named name: String) {
+        let screenshot = app.windows.firstMatch.screenshot()
+        let attachment = XCTAttachment(screenshot: screenshot)
+        #if os(iOS)
+        attachment.name = "Screenshot-\(name)-\(UIDevice.current.name).png"
+        #else
+        attachment.name = "Screenshot-\(name)-macOS.png"
+        #endif
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
     static func generateAlltests(_ rootSuite: XCTestSuite) {
         let stubsSuite = XCTestSuite(name: "GeneratedSteps")
         var stubTests = [XCTestCase]()

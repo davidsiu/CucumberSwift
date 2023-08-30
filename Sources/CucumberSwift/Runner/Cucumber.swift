@@ -11,10 +11,10 @@ import XCTest
 import CucumberSwiftExpressions
 
 @objc public class Cucumber: NSObject { // swiftlint:disable:this type_body_length
-    static var shared = Cucumber()
+    public static var shared = Cucumber()
 
     var features = [Feature]()
-    var currentStep: Step?
+    public var currentStep: Step?
     var reportName: String = "CucumberTestResultsFor"
     var environment: [String: String] = ProcessInfo.processInfo.environment
 
